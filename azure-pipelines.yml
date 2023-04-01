@@ -10,7 +10,7 @@ pool:
   vmImage: 'ubuntu-latest'
 
 variables:
-- group: Synk
+- group: Snyk
 
 steps:
 - task: Maven@4
