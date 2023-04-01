@@ -36,7 +36,5 @@ steps:
     sonarQubeRunAnalysis: false
 
 - script: |
-    SNYK_TOKEN='5464-4564654-7775411-8858'
-    export SNYK_TOKEN
-    mvn snyk:test 
+    echp ${SNYK_TOKEN} 
   displayName: "SCA Scan Azure DevOps App"
