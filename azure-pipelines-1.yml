@@ -15,18 +15,23 @@ steps:
     SonarCloud: 'sonarcloud'
     organization: 'srivasarjit'
     scannerMode: 'Other'
-
+    extraProperties: |
+      # Additional properties that will be passed to the scanner,
+      # Put one key=value per line, example:
+      # sonar.exclusions=**/*.bin
+      sonar.projectKey=srivasarjit_DevOps-Project
+      sonar.projectName=DevOps Project
 - task: Maven@4
   inputs:
     mavenPomFile: 'pom.xml'
-    goals: 'install sonar:sonar'
     publishJUnitResults: true
     testResultsFiles: '**/surefire-reports/TEST-*.xml'
     javaHomeOption: 'JDKVersion'
     mavenVersionOption: 'Default'
     mavenAuthenticateFeed: false
     effectivePomSkip: false
-    sonarQubeRunAnalysis: false
+    sonarQubeRunAnalysis: true
+    sqMavenPluginVersionChoice: 'latest'
 - task: SonarCloudPublish@1
   inputs:
     pollingTimeoutSec: '300'
