@@ -7,16 +7,36 @@ trigger:
 - master
 
 pool:
-  vmImage: 'windows-latest'
+  vmImage: 'ubuntu-latest'
 
 variables:
 - group: Synk
 
 steps:
-
-- task: Bash@3
+- task: Maven@4
   inputs:
-    targetType: 'inline'
-    script: |
-      export SNYK_TOKEN
-      mvn snyk: test -fn
+    mavenPomFile: 'pom.xml'
+    publishJUnitResults: true
+    testResultsFiles: '**/surefire-reports/TEST-*.xml'
+    javaHomeOption: 'JDKVersion'
+    mavenVersionOption: 'Default'
+    mavenAuthenticateFeed: false
+    effectivePomSkip: false
+    sonarQubeRunAnalysis: false
+- task: Maven@4
+  inputs:
+    mavenPomFile: 'pom.xml'
+    goals: 'clean test'
+    publishJUnitResults: true
+    testResultsFiles: '**/surefire-reports/TEST-*.xml'
+    javaHomeOption: 'JDKVersion'
+    mavenVersionOption: 'Default'
+    mavenAuthenticateFeed: false
+    effectivePomSkip: false
+    sonarQubeRunAnalysis: false
+
+- script: |
+    SNYK_TOKEN='5464-4564654-7775411-8858'
+    export SNYK_TOKEN
+    mvn snyk:test 
+  displayName: "SCA Scan Azure DevOps App"
