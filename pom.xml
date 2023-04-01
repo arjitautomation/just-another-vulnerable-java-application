@@ -68,12 +68,15 @@
 	</dependencies>
 	 <build>
         <plugins>
-
-<!--#Change 2 - Changes for Unit Test Coverage Percentage Update on SonarCloud Dashboard
-#By ASecurityGuru
-#5/11/2022 11:14 AM IST
-#Default Location of CodeCoverage File is target/site/jacoco/jacoco.xml,target/site/jacoco-it/jacoco.xml,build/reports/jacoco/test/jacocoTestReport.xml
--->
+<plugin>
+      <groupId>io.snyk</groupId>
+      <artifactId>snyk-maven-plugin</artifactId>
+      <version>2.0.0</version>
+      <inherited>false</inherited>
+<configuration>
+	<org>arjitautomation</org>	
+</configuration>	
+</plugin>	
             <plugin>
                 <groupId>org.jacoco</groupId>
                <artifactId>jacoco-maven-plugin</artifactId>
