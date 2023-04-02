@@ -45,5 +45,5 @@ steps:
     script: |
       SNYK_TOKEN= $(SNYK_TOKEN)
       export SNYK_TOKEN
-      mvn snyk:test -fn
+      mvn snyk:test
   displayName: Snyk test
