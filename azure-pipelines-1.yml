@@ -47,3 +47,10 @@ steps:
       export SNYK_TOKEN
       mvn snyk:test
   displayName: Snyk test
+
+- task: SnykSecurityScan@1
+  inputs:
+    serviceConnectionEndpoint: 'snyk'
+    testType: 'app'
+    monitorWhen: 'always'
+    failOnIssues: true
