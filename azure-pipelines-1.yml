@@ -68,5 +68,7 @@ steps:
     failOnIssues: true
 - task: Docker@2
   inputs:
-    command: 'build'
+    containerRegistry: 'arjitdocker'
+    repository: 'arjitks77/devsecops'
+    command: 'buildAndPush'
     Dockerfile: '**/Dockerfile'
