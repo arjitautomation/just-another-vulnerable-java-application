@@ -66,3 +66,7 @@ steps:
     testType: 'app'
     monitorWhen: 'always'
     failOnIssues: true
+- task: Docker@2
+  inputs:
+    command: 'build'
+    Dockerfile: '**/Dockerfile'
