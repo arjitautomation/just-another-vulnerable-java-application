@@ -55,6 +55,7 @@ steps:
 #  displayName: Snyk test
 
 - task: SnykSecurityScan@1
+  displayName: Synk Scanning for SCA
   continueOnError: true
   inputs:
     serviceConnectionEndpoint: 'snyk'
@@ -66,6 +67,7 @@ steps:
 #  inputs:
 #    filePath: '$(System.DefaultWorkingDirectory)'
 - task: Docker@2
+  displayName: Building Docker image
   inputs:
     containerRegistry: 'arjitdocker'
     repository: 'arjitks77/devsecops'
@@ -73,6 +75,7 @@ steps:
     Dockerfile: '**/Dockerfile'
 
 - task: Bash@3
+  displayName: Installing Trivy (Docker image scanning)
   inputs:
     targetType: 'inline'
     script: |
@@ -83,6 +86,14 @@ steps:
       sudo apt-get install trivy
 
 - task: Bash@3
+  displayName: Trivy Scan
   inputs:
     targetType: 'inline'
     script: 'trivy image arjitks77/devsecops:$(Build.BuildId)'
+
+- task: Docker@2
+  condition: 
+  inputs:
+    containerRegistry: 'arjitdocker'
+    repository: 'arjitks77/devsecops'
+    command: 'push'
