@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
       - name: myapp
-        image: arjitks77/devsecops:391
+        image: stacksimplify/kubenginx:1.0.0
         resources:
           limits:
             memory: "128Mi"
