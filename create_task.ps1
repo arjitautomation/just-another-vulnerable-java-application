@@ -1,4 +1,4 @@
-$pacToken = "uyvmljrwrkmzqjd3fg7wvygl4rjn46svpgap55pg4ts6k36xjmcq"
+
 $organizationName = "arjitdevops"
 $projectName = "Devops"
 $adoHeader = @{Authorization=("Basic {0}" -f [Convert]::ToBase64String([Text.Encoding]::ASCII.GetBytes(("{0}:{1}" -f "",$pacToken))))}
