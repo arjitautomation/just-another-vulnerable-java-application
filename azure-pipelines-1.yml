@@ -35,19 +35,29 @@ steps:
     effectivePomSkip: false
     sonarQubeRunAnalysis: true
     sqMavenPluginVersionChoice: 'latest'
+
+- task: CopyFiles@2
+  inputs:
+    Contents: '**'
+    TargetFolder: '$(build.artifactstagingdirectory)'
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
 - task: SonarCloudPublish@1
   inputs:
     pollingTimeoutSec: '300'
 
-- task: Bash@3
-  continueOnError: true
-  inputs:
-    targetType: 'inline'
-    script: |
-      SNYK_TOKEN= $(SNYK_TOKEN)
-      export SNYK_TOKEN
-      mvn snyk:test
-  displayName: Snyk test
+#- task: Bash@3
+#  continueOnError: true
+#  inputs:
+#    targetType: 'inline'
+#    script: |
+#      SNYK_TOKEN= $(SNYK_TOKEN)
+#      export SNYK_TOKEN
+#      mvn snyk:test
+#  displayName: Snyk test
 
 - task: SnykSecurityScan@1
   inputs:
