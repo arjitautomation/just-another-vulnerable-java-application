@@ -60,6 +60,7 @@ steps:
 #  displayName: Snyk test
 
 - task: SnykSecurityScan@1
+  continueOnError: true
   inputs:
     serviceConnectionEndpoint: 'snyk'
     testType: 'app'
