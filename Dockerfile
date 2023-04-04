@@ -1,8 +1,3 @@
-FROM openjdk:8
-
-RUN apt-get update && \
-    apt-get install build-essential maven default-jdk cowsay netcat -y && \
-    update-alternatives --config javac
-COPY . .
-
-CMD ["mvn", "spring-boot:run"]
+FROM openjdk:8-jdk-alpine
+COPY target/*.jar *.jar
+ENTRYPOINT ["java","-jar","/vulnado-0.0.1-SNAPSHOT.jar"]
