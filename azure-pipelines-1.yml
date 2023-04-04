@@ -97,3 +97,9 @@ steps:
     containerRegistry: 'arjitdocker'
     repository: 'arjitks77/devsecops'
     command: 'push'
+- task: KubernetesManifest@1
+  inputs:
+    action: 'deploy'
+    connectionType: 'kubernetesServiceConnection'
+    kubernetesServiceConnection: 'arjitkubernetes'
+    manifests: 'Deploy.yml'
