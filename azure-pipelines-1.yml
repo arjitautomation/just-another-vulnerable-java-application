@@ -2,7 +2,7 @@ trigger:
 - None
 
 pool:
-  vmImage: ubuntu-latest
+  vmImage: windows-latest
 
 variables:
 - group: Snyk 
@@ -55,7 +55,7 @@ steps:
 - task: PowerShell@2
   displayName: Creating task in Azure Boards
   inputs:
-    filePath: '$(Build.SourcesDirectory)/task.ps1'
+    filePath: '$(Build.SourcesDirectory)/create_task.ps1'
     arguments: '$(token)'
 - task: Docker@2
   displayName: Building Docker image
