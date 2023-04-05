@@ -1,11 +1,12 @@
 trigger:
-- main
+- None
 
 pool:
   vmImage: ubuntu-latest
 
 variables:
 - group: Snyk 
+- group: Token
 
 steps:
 - task: SonarCloudPrepare@1
@@ -14,9 +15,6 @@ steps:
     organization: 'srivasarjit'
     scannerMode: 'Other'
     extraProperties: |
-      # Additional properties that will be passed to the scanner,
-      # Put one key=value per line, example:
-      # sonar.exclusions=**/*.bin
       sonar.projectKey=srivasarjit_DevOps-Project
       sonar.projectName=DevOps Project
 - task: Maven@4
@@ -44,15 +42,6 @@ steps:
   inputs:
     pollingTimeoutSec: '300'
 
-#- task: Bash@3
-#  continueOnError: true
-#  inputs:
-#    targetType: 'inline'
-#    script: |
-#      SNYK_TOKEN= $(SNYK_TOKEN)
-#      export SNYK_TOKEN
-#      mvn snyk:test
-#  displayName: Snyk test
 
 - task: SnykSecurityScan@1
   displayName: Synk Scanning for SCA
@@ -63,9 +52,11 @@ steps:
     monitorWhen: 'always'
     failOnIssues: true
 
-#- task: PowerShell@2
-#  inputs:
-#    filePath: '$(System.DefaultWorkingDirectory)'
+- task: PowerShell@2
+  displayName: Creating task in Azure Boards
+  inputs:
+    filePath: '$(Build.SourcesDirectory)/task.ps1'
+    arguments: '$(token)'
 - task: Docker@2
   displayName: Building Docker image
   inputs:
@@ -97,9 +88,10 @@ steps:
     containerRegistry: 'arjitdocker'
     repository: 'arjitks77/devsecops'
     command: 'push'
-- task: KubernetesManifest@1
-  inputs:
-    action: 'deploy'
-    connectionType: 'kubernetesServiceConnection'
-    kubernetesServiceConnection: 'arjitkubernetes'
-    manifests: 'Deploy.yml'
+
+#- task: KubernetesManifest@1
+#  inputs:
+#    action: 'deploy'
+#    connectionType: 'kubernetesServiceConnection'
+#    kubernetesServiceConnection: 'arjitkubernetes'
+#    manifests: 'Deploy.yml'
