@@ -2,7 +2,7 @@ trigger:
 - None
 
 pool:
-  vmImage: windows-latest
+  vmImage: ubuntu-latest
 
 variables:
 - group: Snyk 
@@ -41,7 +41,6 @@ steps:
 - task: SonarCloudPublish@1
   inputs:
     pollingTimeoutSec: '300'
-
 
 - task: SnykSecurityScan@1
   displayName: Synk Scanning for SCA
